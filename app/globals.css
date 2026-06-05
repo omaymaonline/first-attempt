@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f4f6;
+  --foreground: #1f2937;
+
+  --primary: #f472b6;
+  --accent: #fbbf24;
+
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Playfair Display", serif;
+}
+
+/* Base Page */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--foreground);
+  line-height: 1.2;
+}
+
+p {
+  color: #374151;
+}
+
+/* Links */
+a {
+  transition: all 0.2s ease;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Images */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Text Selection */
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  transition: background 0.4s ease;
+}
+
+/* Visible while scrolling */
+body.scrolling::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+}
+
+/* Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.8);
+}
+
+/*focus rings*/
+*:focus-visible {
+  outline: 2px solid #f9a8d4;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+}
+
+/*image dragging*/
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/*text rendering*/
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/*smooth scrolling*/
+html {
+  scroll-behavior: smooth;
+}
+
+/*Remove Mobile Tap Flash*/
+* {
+  -webkit-tap-highlight-color: transparent;
+}

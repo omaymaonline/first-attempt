@@ -1,0 +1,16 @@
+{
+    "name": "Omayma Online",
+    "short_name": "Omayma",
+    "description": "Systems, automation, and thoughtful digital experiences.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f3f4f6",
+    "theme_color": "#f472b6",
+    "icons": [
+        {
+            "src": "/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
