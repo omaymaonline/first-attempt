@@ -1,5 +1,6 @@
 import Hero from "@/components/services/Hero";
 import Timeline from "@/components/services/Timeline";
+import Fit from "@/components/services/Fit";
 import CTA from "@/components/services/CTA";
 
 export default function HowWeWorkPage() {
@@ -9,6 +10,8 @@ export default function HowWeWorkPage() {
                 <Hero />
 
                 <Timeline />
+
+                <Fit />
 
                 <CTA />
             </div>

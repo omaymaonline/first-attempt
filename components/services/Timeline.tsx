@@ -20,11 +20,11 @@ const sections = [
                     <p>“I need a website.”</p>
                     <p>“I want to start a business.”</p>
                     <p>“Everything feels messy.”</p>
-                    <p>“I don't know where to begin.”</p>
+                    <p>“I don&apos;t know where to begin.”</p>
                 </div>
 
                 <p className="mt-6">
-                    That's completely normal.
+                    That&apos;s completely normal.
                 </p>
 
                 <p>
@@ -42,16 +42,17 @@ const sections = [
     {
         id: "understanding",
         step: "Understanding",
-        title: "We talk,",
+        title: "We talk through a discovery session",
         content: (
             <>
-                <p> Through a discovery session, we explore: </p>
+                <p> Where we explore: </p>
 
                 <ul className="mt-6 space-y-3 pl-6">
                     <li>• your goals</li>
                     <li>• your challenges</li>
                     <li>• your constraints</li>
-                    <li>• your priorities</li>
+                    <li>• your priorities: what matters now, what can wait, what is necessary, what is optional, </li>
+                    <li>• what should not be built at all </li>
                     <li>• your current situation</li>
                 </ul>
 
@@ -61,51 +62,18 @@ const sections = [
     },
 
     {
-        id: "clarity",
-        step: "Clarity",
-        title: "We continue clarifying your position,",
-        content: (
-            <>
-                <p> Because most people are not lacking effort. </p>
-
-                <p> They are lacking clarity. </p>
-
-                <p> Together we identify: </p>
-
-                <ul className="mt-6 space-y-3 pl-6">
-                    <li>• what matters now</li>
-                    <li>• what can wait</li>
-                    <li>• what is necessary</li>
-                    <li>• what is optional</li>
-                    <li>• what should not be built at all</li>
-                </ul>
-
-                <p className="mt-6"> Here, you receive a form which you answer and accordingly we move on to the next phase.</p>
-
-            </>
-        ),
-    },
-
-    {
         id: "roadmap",
         step: "Roadmap",
-        title: "You receive a roadmap,",
+        title: "Clarifying your position through an executable roadmap,",
         content: (
             <>
-                <p>
-                    After the research and analysis phase, I prepare a practical implementation plan.
-                </p>
+                <p> After the research and analysis phase, I prepare a practical implementation plan. </p>
 
-                <p>
-                    Depending on the project,
-                    this may include:
-                </p>
+                <p> Depending on the project, this may include: </p>
 
                 <ul className="mt-6 space-y-3 pl-6">
                     <li>• a presentation</li>
-                    <li>• a PDF roadmap</li>
-                    <li>• recommended tools</li>
-                    <li>• learning resources</li>
+                    <li>• a PDF roadmap (a strategy, implementation priorities, recommended tools, learning resources, workflow suggestions...)</li>
                     <li>• system diagrams</li>
                     <li>• a Notion workspace</li>
                 </ul>
@@ -116,11 +84,11 @@ const sections = [
     {
         id: "implementation",
         step: "Implementation",
-        title: "Then we build,",
+        title: "Where we build",
         content: (
             <>
                 <p>
-                    If you decide to continue working with me, we move into implementation.
+                    If you decide to continue working with us, we move into implementation.
                 </p>
 
                 <div className="mt-8 grid gap-4 md:grid-cols-2">

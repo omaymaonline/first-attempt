@@ -6,7 +6,7 @@ import PrimaryButton from "@/components/buttons/PrimaryButton"
 
 export default function CTA() {
     return (
-        <section className="relative py-16 px-6">
+        <section className="mt-10 relative py-16 px-6">
             <div className="mx-auto max-w-4xl text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 40, }}
@@ -36,15 +36,17 @@ export default function CTA() {
                     </h2>
 
                     <p className="mx-auto mt-8 mb-4 max-w-2xl text-xl text-gray-600 leading-relaxed">
-                        If you'd like help understanding
-                        your situation, identifying what
-                        matters, and building the right
-                        solution, let's start with a
-                        conversation.
+                        Whether you need a roadmap, a website,
+                        or help deciding what comes next,
+                        start with a short form and a conversation.
                     </p>
 
-                    <PrimaryButton href="/contact">
-                        Start a Conversation
+                    <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-500">
+                        Together, we&apos;ll determine the most sensible path forward.
+                    </p>
+
+                    <PrimaryButton href="/services/onboarding/questionnaire">
+                        Find Your Next Step
                     </PrimaryButton>
 
                 </motion.div>
