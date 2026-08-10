@@ -1,10 +1,12 @@
-import "./globals.css"
+import "./globals.css";
 
-import Footer from "@/components/footer/Footer";
-import LanguageStrip from "@/components/language-switcher/LanguageStrip";
-import Navbar from "@/components/navbar/navbar";
+import AuthProvider from "@/components/providers/AuthProvider";
 
-import ScrollbarVisibility from "@/components/scrollbar/ScrollbarVisibility";
+import Footer from "@/components/layout/Footer";
+import LanguageStrip from "@/components/layout/LanguageSwitcher";
+import Navbar from "@/components/layout/Navbar";
+
+import ScrollbarVisibility from "@/components/layout/ScrollbarVisibility";
 
 export const metadata = {
   title: "Omayma Online",
@@ -19,26 +21,26 @@ export default async function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body>
+        <AuthProvider>
+          {/* Fixed Top Area */}
+          <div className="fixed top-0 z-50 w-full shadow-md">
 
-        {/* Fixed Top Area */}
-        <div className="fixed top-0 z-50 w-full shadow-md">
+            <LanguageStrip />
 
-          <LanguageStrip />
+            <Navbar />
 
-          <Navbar />
+            <ScrollbarVisibility />
 
-          <ScrollbarVisibility />
+          </div>
 
-        </div>
+          {/* Main Content */}
+          <main className="pt-20">
+            {children}
+          </main>
 
-        {/* Main Content */}
-        <main className="pt-20">
-          {children}
-        </main>
+          <Footer />
 
-        <Footer />
-
-
+        </AuthProvider>
       </body>
     </html>
   );

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import PrimaryButton from "@/components/buttons/PrimaryButton";
-import SecondaryButton from "@/components/buttons/SecondaryButton";
+import PrimaryButton from "@/components/buttons&links/PrimaryButton";
+import SecondaryButton from "@/components/buttons&links/SecondaryButton";
 
 import ReviewSection from "./ReviewSection";
 

@@ -3,8 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import PrimaryButton from "@/components/buttons/PrimaryButton";
-import SecondaryButton from "@/components/buttons/SecondaryButton";
+import PrimaryButton from "@/components/buttons&links/PrimaryButton";
+import SecondaryButton from "@/components/buttons&links/SecondaryButton";
 
 import ProgressBar from "@/components/services/onboarding/questionnaire/ProgressBar";
 
@@ -18,7 +18,6 @@ import FinalThoughts from "@/components/services/onboarding/questionnaire/sectio
 
 import { validateStep, getFirstInvalidField } from "@/components/services/onboarding/questionnaire/validation";
 import { useQuestionnaire } from "./hooks/useQuestionnaire";
-
 import ConfirmDialog from "./hooks/ConfirmDialog";
 
 const sections = [
@@ -34,23 +33,36 @@ const sections = [
 export default function QuestionnaireForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
-
     const { data, setData, clearDraft } = useQuestionnaire();
 
-    const [currentStep, setCurrentStep] = useState(0);
     const sectionRef = useRef<HTMLElement>(null);
+    const [showConfirm, setShowConfirm] = useState(false);
+
+    // Derive current step from URL
+    const stepParam = searchParams.get("step");
+    const currentStep =
+        stepParam !== null
+            ? Math.min(Math.max(Number(stepParam) || 0, 0), sections.length - 1)
+            : 0;
 
     const canContinue = validateStep(currentStep, data);
 
+    // Ensure step param exists in URL
     useEffect(() => {
-        const step = searchParams.get("step");
-        if (!step) return;
-        const parsed = Number(step);
-        if (!Number.isNaN(parsed) && parsed >= 0 && parsed < sections.length) {
-            setCurrentStep(parsed);
+        if (!searchParams.get("step")) {
+            router.replace("/services/onboarding/questionnaire?step=0", { scroll: false });
         }
-    }, [searchParams]);
+    }, [searchParams, router]);
 
+    // Scroll to section top when step changes
+    useEffect(() => {
+        if (sectionRef.current) {
+            const top = sectionRef.current.offsetTop;
+            window.scrollTo({ top: top - 120, behavior: "smooth" });
+        }
+    }, [currentStep]);
+
+    // Render section by step
     const renderSection = () => {
         switch (currentStep) {
             case 0: return <AboutYou data={data} setData={setData} />;
@@ -64,30 +76,18 @@ export default function QuestionnaireForm() {
         }
     };
 
-    const scrollToSectionTop = () => {
-        if (sectionRef.current) {
-            const top = sectionRef.current.offsetTop;
-            window.scrollTo({ top: top - 120, behavior: "smooth" });
-        }
-    };
-
+    // Navigation helpers
     const goToStep = (step: number) => {
-        setCurrentStep(step);
-        router.push(`/services/onboarding/questionnaire?step=${step}`, { scroll: false });
-    };
-
-    useEffect(() => {
-        if (!searchParams.get("step")) {
-            router.replace("/services/onboarding/questionnaire?step=0", { scroll: false });
+        if (step !== currentStep) {
+            router.push(`/services/onboarding/questionnaire?step=${step}`, { scroll: false });
         }
-    }, [searchParams, router]);
-
-    useEffect(() => { scrollToSectionTop(); }, [currentStep]);
+    };
 
     const scrollToFirstError = () => {
         const fieldId = getFirstInvalidField(currentStep, data);
-        if (!fieldId) return;
-        document.getElementById(fieldId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (fieldId) {
+            document.getElementById(fieldId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
     };
 
     const handleNext = () => {
@@ -96,25 +96,27 @@ export default function QuestionnaireForm() {
             return;
         }
         if (currentStep === sections.length - 1) {
-            router.push("/services/onboarding/questionnaire-review");
-            return;
+            router.push("/services/onboarding/discovery-package");
+        } else {
+            goToStep(Math.min(currentStep + 1, sections.length - 1));
         }
-        goToStep(Math.min(currentStep + 1, sections.length - 1));
     };
-
-    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleConfirmClear = () => {
         clearDraft();
-        setCurrentStep(0);
         router.replace("/services/onboarding/questionnaire?step=0", { scroll: false });
         window.scrollTo({ top: 0, behavior: "smooth" });
         setShowConfirm(false);
     };
 
+    // Render
     return (
         <section ref={sectionRef} className="mt-20 rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
-            <ProgressBar currentStep={currentStep} totalSteps={sections.length} currentSection={sections[currentStep]} />
+            <ProgressBar
+                currentStep={currentStep}
+                totalSteps={sections.length}
+                currentSection={sections[currentStep]}
+            />
 
             {renderSection()}
 
@@ -129,20 +131,32 @@ export default function QuestionnaireForm() {
                     Previous
                 </SecondaryButton>
 
-                <PrimaryButton disabled={false} onClick={handleNext} inactive={!canContinue}>
-                    {currentStep === sections.length - 1 ? "Review Answers" : "Save & Continue"}
+                <PrimaryButton onClick={handleNext} inactive={!canContinue}>
+                    {currentStep === sections.length - 1 ? "Submit" : "Save & Continue"}
                 </PrimaryButton>
             </div>
 
-            <h6 className="mt-8 text-center text-sm text-gray-500">
+            <p className="mt-8 text-center text-sm text-gray-500">
                 Your draft will remain available if you leave and return later.
+            </p>
+
+            <h6 className="text-center mt-8">
+                <a
+                    href="/services/onboarding/questionnaire-review"
+                    className="text-sm text-gray-300 hover:text-gray-500 hover:underline"
+                >
+                    Review Answers before submitting
+                </a>
+            </h6>
+
+            <h6 className="text-center">
                 <a
                     href="#"
                     onClick={(e) => {
                         e.preventDefault();
                         setShowConfirm(true);
                     }}
-                    className="mt-8 text-sm text-red-200 hover:text-red-500"
+                    className="mt-8 text-sm text-red-200 hover:text-red-500 hover:underline"
                 >
                     Clear Draft
                 </a>
@@ -154,10 +168,7 @@ export default function QuestionnaireForm() {
                     onConfirm={handleConfirmClear}
                     onCancel={() => setShowConfirm(false)}
                 />
-
-
             </h6>
-
         </section>
     );
 }

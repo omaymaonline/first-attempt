@@ -9,9 +9,9 @@ export default function HowWeWorkPage() {
             <div className="mx-auto max-w-7xl">
                 <Hero />
 
-                <Timeline />
-
                 <Fit />
+
+                <Timeline />
 
                 <CTA />
             </div>

@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+
 
 import JourneyNav from "./JourneyNav";
 import JourneySection from "./JourneySection";
+
+import Accordion from "./Accordion";
 
 // Timeline content
 
@@ -168,27 +172,32 @@ export default function Timeline() {
 
         handleScroll();
 
-        window.addEventListener(
-            "scroll",
-            handleScroll,
-            { passive: true }
-        );
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
-        return () =>
-            window.removeEventListener(
-                "scroll",
-                handleScroll
-            );
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return (
         <>
+            <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+                className="mx-auto h-[1px] w-40 bg-gradient-to-r from-transparent via-pink-300 to-transparent"
+            />
+
+            <motion.div initial={{ opacity: 0, y: 40, }} whileInView={{ opacity: 1, y: 0, }} viewport={{ once: true, }} transition={{ duration: 0.8, }}>
+                <h2 className="mt-10 text-3xl text-center"> How we work: </h2>
+            </motion.div>
+
             <JourneyNav activeSection={activeSection} progress={progress} visible={showNav} />
 
             <div ref={timelineRef} className="relative mt-20">
                 {sections.map((section) => (
-                    <JourneySection key={section.id} id={section.id} step={section.step} title={section.title}>
-                        {section.content}
+                    <JourneySection key={section.id} id={section.id} step={section.step}>
+                        <Accordion title={section.title}>
+                            {section.content}
+                        </Accordion>
                     </JourneySection>
                 ))}
             </div>

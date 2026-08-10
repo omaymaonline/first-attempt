@@ -1,4 +1,4 @@
-import PrimaryLink from "@/components/links/PrimaryLink";
+import PrimaryLink from "@/components/buttons&links/PrimaryLink";
 
 export default function ServicesPreview() {
     return (

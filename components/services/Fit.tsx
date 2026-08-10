@@ -20,63 +20,72 @@ export default function Fit() {
     ];
 
     return (
-        <section className="mt-10 grid gap-8 md:grid-cols-2 mx-10">
-
-            {/* Good Fit */}
+        <div>
             <motion.div initial={{ opacity: 0, y: 40, }} whileInView={{ opacity: 1, y: 0, }} viewport={{ once: true, }} transition={{ duration: 0.8, }}>
-                <div className="rounded-3xl border border-green-200 bg-green-50 p-8">
-
-                    <h2 className="text-3xl">
-                        Good Fit
-                    </h2>
-
-                    <p className="mt-4 text-gray-600">
-                        You will probably benefit from this process if:
-                    </p>
-
-                    <div className="mt-8 space-y-5">
-                        {goodFit.map((item) => (
-                            <div key={item} className="flex gap-3">
-                                <span>✓</span>
-
-                                <p>{item}</p>
-                            </div>
-                        ))}
-                    </div>
-
-                </div>
-
+                <h2 className="mt-10 text-3xl text-center">
+                    Is this right for you?
+                </h2>
             </motion.div>
 
 
-            {/* Not Good Fit */}
-            <motion.div initial={{ opacity: 0, y: 40, }} whileInView={{ opacity: 1, y: 0, }} viewport={{ once: true, }} transition={{ duration: 1.4, }}>
-                <div className="rounded-3xl border border-red-200 bg-red-50 p-8">
+            <section className="mt-10 mb-30 grid gap-8 md:grid-cols-2 mx-10">
 
-                    <h2 className="text-3xl">
-                        Not a Good Fit
-                    </h2>
+                {/* Not Good Fit */}
+                <motion.div initial={{ opacity: 0, y: 40, }} whileInView={{ opacity: 1, y: 0, }} viewport={{ once: true, }} transition={{ duration: 2.0, }}>
+                    <div className="rounded-3xl border border-red-200 bg-red-50 p-8">
 
-                    <p className="mt-4 text-gray-600">
-                        This process may not be suitable if:
-                    </p>
+                        <h2 className="text-3xl">
+                            Not a Good Fit
+                        </h2>
 
-                    <div className="mt-8 space-y-5">
-                        {badFit.map((item) => (
-                            <div key={item} className="flex gap-3">
-                                <span>✕</span>
+                        <p className="mt-4 text-gray-600">
+                            This process may not be suitable if:
+                        </p>
 
-                                <p>{item}</p>
-                            </div>
-                        ))}
+                        <div className="mt-8 space-y-5">
+                            {badFit.map((item) => (
+                                <div key={item} className="flex gap-3">
+                                    <span>✕</span>
+
+                                    <p>{item}</p>
+                                </div>
+                            ))}
+                        </div>
+
                     </div>
 
-                </div>
-
-            </motion.div>
+                </motion.div>
 
 
-        </section>
+                {/* Good Fit */}
+                <motion.div initial={{ opacity: 0, y: 40, }} whileInView={{ opacity: 1, y: 0, }} viewport={{ once: true, }} transition={{ duration: 1.4, }}>
+                    <div className="rounded-3xl border border-green-200 bg-green-50 p-8">
+
+                        <h2 className="text-3xl">
+                            Good Fit
+                        </h2>
+
+                        <p className="mt-4 text-gray-600">
+                            You will probably benefit from this process if:
+                        </p>
+
+                        <div className="mt-8 space-y-5">
+                            {goodFit.map((item) => (
+                                <div key={item} className="flex gap-3">
+                                    <span>✓</span>
+
+                                    <p>{item}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+
+                </motion.div>
+
+
+            </section>
+        </div>
 
     );
 }

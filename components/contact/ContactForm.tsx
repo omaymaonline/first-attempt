@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import PrimaryButton from "@/components/buttons/PrimaryButton";
+import PrimaryButton from "@/components/buttons&links/PrimaryButton";
 import ShortTextField from "@/components/fields/ShortTextField";
 import TextareaField from "@/components/fields/TextareaField";
 

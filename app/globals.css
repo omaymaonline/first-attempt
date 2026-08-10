@@ -117,3 +117,194 @@ html {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+
+
+
+
+/* ==========================================================
+   HERO BACKGROUND — Calm, subtle atmosphere
+==========================================================*/
+
+/* Sky breathing */
+@keyframes heroSky {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .92;
+    transform: scale(1.05);
+  }
+}
+
+.hero-sky {
+  animation: heroSky 14s ease-in-out infinite;
+}
+
+/* Top cloud drift */
+@keyframes heroCloudTop {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-70px, 20px);
+  }
+}
+
+.hero-cloud-top {
+  animation: heroCloudTop 22s ease-in-out infinite;
+}
+
+/* Middle cloud drift */
+@keyframes heroCloudMiddle {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(60px, -18px);
+  }
+}
+
+.hero-cloud-middle {
+  animation: heroCloudMiddle 25s ease-in-out infinite;
+}
+
+/* Sun pulse */
+@keyframes heroSun {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .30;
+  }
+
+  50% {
+    transform: scale(1.10);
+    opacity: .48;
+  }
+}
+
+.hero-sun {
+
+  animation: heroSun 8s ease-in-out infinite;
+}
+
+/* Cloud base styles */
+.hero-cloud {
+  transform-origin: center;
+  transition:
+    filter .35s ease,
+    opacity .35s ease;
+}
+
+/* Hover effect — pause + brighten */
+.hero-cloud:hover {
+  animation-play-state: paused;
+  opacity: 1;
+  filter: brightness(1.08);
+  cursor: default;
+}
+
+
+/* Accessibility: disable motion */
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-sky,
+  .hero-cloud-top,
+  .hero-cloud-middle,
+  .hero-sun {
+    animation: none;
+  }
+}
+
+
+
+
+
+
+/* ==========================================================
+   HERO LOGO
+==========================================================*/
+
+@keyframes heroLogo {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: translateY(-7px) rotate(-0.7deg) scale(1.005);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(0deg) scale(1.02);
+  }
+
+  75% {
+    transform: translateY(-7px) rotate(.7deg) scale(1.005);
+  }
+}
+
+.hero-logo {
+  animation: heroLogo 7s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+  transition: filter .35s ease, transform .35s ease;
+}
+
+
+/* Pause the entire floating object */
+.hero-floating:hover .hero-logo,
+.hero-floating:hover .hero-shadow {
+  animation-play-state: paused;
+}
+
+
+/* Slight interaction */
+
+.hero-floating:hover .hero-logo {
+  filter: brightness(1.08) saturate(1.06);
+}
+
+/* GROUND SHADOW */
+@keyframes heroShadow {
+
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: .30;
+    filter: blur(30px);
+
+  }
+
+  50% {
+    transform: translateX(-50%) scale(.82);
+    opacity: .14;
+    filter: blur(38px);
+  }
+
+}
+
+.hero-shadow {
+  animation: heroShadow 7s ease-in-out infinite;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-logo,
+  .hero-shadow {
+    animation: none;
+  }
+}

@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                  String              @id @default(cuid())
+  name                String
+  email               String              @unique
+  password            String
+  role                Role                @default(USER)
+  createdAt           DateTime            @default(now())
+  emailVerified       Boolean             @default(false)
+  updatedAt           DateTime            @updatedAt
+  deletedAt           DateTime?
+  sessionVersion      Int                 @default(0)
+  emailChangeRequests EmailChangeRequest?
+  passwordResetToken  PasswordResetToken?
+  verificationTokens  VerificationToken[]
+  
+  failedLoginCount Int @default(0)
+  lockedUntil DateTime?
+  isActive Boolean @default(true)
+
+  @@index([deletedAt])
+  @@index([emailVerified, createdAt])
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model EmailChangeRequest {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  oldEmail  String
+  newEmail  String   @unique
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ip        String?
+  success   Boolean
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+enum Role {
+  USER
+  ADMIN
+}

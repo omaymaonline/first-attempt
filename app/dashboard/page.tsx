@@ -1,7 +1,12 @@
-export default function DashboardPage() {
-  return (
-    <section className="px-6 py-20">
-      <h1 className="text-5xl">Dashboard</h1>
-    </section>
-  );
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+
+import DashboardClient from "@/components/dashboard/DashboardClient";
+
+export default async function DashboardPage() {
+  const session = await auth();
+
+  if (!session) { redirect("/auth/login"); }
+
+  return <DashboardClient />;
 }
